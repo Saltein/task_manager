@@ -1,10 +1,14 @@
-import { DefaultButton } from "../../shared"
+import { DefaultButton, DefaultInput } from "../../shared"
 import s from "./RegistrationForm.module.css"
 
 export const RegistrationForm = (props) => {
     return (
         <div className={s.r_form}>
-            <DefaultButton label="ЖОПА"/>
+            <div className={s.inputs}>
+                <DefaultInput type='text' placeholder='Email' />
+                <DefaultInput type='password' placeholder='Пароль' />
+            </div>
+            <DefaultButton label="ЖОПА" />
         </div>
     )
 }
