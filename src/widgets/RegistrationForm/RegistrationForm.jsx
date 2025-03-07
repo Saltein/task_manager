@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DefaultButton, DefaultInput } from "../../shared";
 import s from "./RegistrationForm.module.css";
 import { registrationApi } from "../../shared/api/registrationAPI";
+import { validatePassword } from "../../shared";
 
 export const RegistrationForm = (props) => {
     const [isRegister, setIsRegister] = useState(false);
@@ -10,27 +11,56 @@ export const RegistrationForm = (props) => {
         password: "",
         name: "",
     });
+    const [warningText, setWarningText] = useState('')
+    const [isChanging, setIsChanging] = useState(false);
 
     const handleToggle = () => {
         setIsRegister((prev) => !prev);
     };
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    };
+
+    const warningMessages = {
+        1: "Пароль должен содержать как минимум 6 символов",
+        2: "Пароль должен содержать как минимум 2 заглавные буквы",
+        3: "Пароль должен содержать как минимум 1 специальный символ"
     };
 
 
+
+    useEffect(() => {
+        if (!isRegister) {
+            setWarningText('');
+            return;
+        }
+
+        const newWarning = validatePassword(formData.password);
+
+        if (newWarning !== warningText) {
+            setIsChanging(true);
+            setTimeout(() => setIsChanging(false), 500); // Убираем эффект через 0.5 сек
+        }
+
+        setWarningText(newWarning);
+    }, [formData.password, isRegister]);
+
+
+
     const registration = () => {
-        registrationApi.registration(formData)
+        // registrationApi.registration(formData)
     }
 
     const login = () => {
-        registrationApi.registration(formData)
+        // registrationApi.registration(formData)
     }
-    
+
+
     return (
         <div className={s.r_form}>
             <div className={s.logo_label}>
@@ -44,6 +74,12 @@ export const RegistrationForm = (props) => {
                 </div>
                 <DefaultInput type='text' placeholder='Email' name="email" value={formData.email} onChange={handleChange} />
                 <DefaultInput type='password' placeholder='Пароль' name="password" value={formData.password} onChange={handleChange} />
+
+                <span className={`${s.warningText} ${warningText ? s.show : ''} ${isChanging ? s.changing : ''}`}>
+                    {warningText ? warningMessages[warningText] : ""}
+                </span>
+
+
                 <DefaultButton label={isRegister ? "ЗАРЕГИСТРИРОВАТЬСЯ" : "ВОЙТИ"} onClick={isRegister ? registration : login} />
                 <a className={s.reg_butt} onClick={handleToggle}>
                     {isRegister ? "Войти" : "Зарегистрироваться"}
