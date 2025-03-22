@@ -2,18 +2,19 @@
     height: 32px;
     width: 240px;
     border-radius: 8px;
-    margin: 8px;
     border: none;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    border-bottom: 2px solid rgb(120, 120, 120);
     transition: 0.2s;
 }
 
-.button:active {
-    background-color: rgb(163, 29, 29);
-    color: white;
-    transition: 0s;
+.button:hover {
+    border-bottom: 2px solid rgb(200, 0, 0);
+    cursor: pointer;
 }
 
-.button:hover {
-    box-shadow: 0px 2px 4px rgb(163, 29, 29);
+.button:active {
+    background-color: rgb(160, 30, 30);
+    border-bottom: 2px solid rgb(64, 11, 11);
+    color: white;
+    transition: 0s;
 }
