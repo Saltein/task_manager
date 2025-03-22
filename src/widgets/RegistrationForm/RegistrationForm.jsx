@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { DefaultButton, DefaultInput } from "../../shared";
 import s from "./RegistrationForm.module.css";
-import { registrationApi } from "../../shared/api/registrationAPI";
 import { validatePassword } from "../../shared";
+import { APIs } from "../../shared/api";
 
 export const RegistrationForm = (props) => {
     const [isRegister, setIsRegister] = useState(false);
@@ -57,7 +57,7 @@ export const RegistrationForm = (props) => {
     }
 
     const login = () => {
-        // registrationApi.registration(formData)
+        APIs.login(formData)
     }
 
 

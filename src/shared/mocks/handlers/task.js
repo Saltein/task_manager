@@ -1,7 +1,7 @@
 import { http, HttpResponse  } from 'msw';
-import { API_URL } from '../config/api';
+import { API_URL } from '../../config/api';
 
-export const handlers = [
+export const taskHandlers = [
     http.get(`${API_URL}/tasks`, () => {
         return HttpResponse.json([
             {id: '1', title: 'купить продукты', priority: 'high'},
