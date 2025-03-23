@@ -1,0 +1,13 @@
+import {http, HttpResponse} from 'msw'
+import { API_URL } from '../../config/api'
+
+
+export const registrationHandlers = [
+    http.post(`${API_URL}/registration`, async ({ request }) => {
+        const {email, password, name} = request.json();
+        if(email !== "" && password !== "" && name !== ""){
+            return HttpResponse.json({message: "Registration successful!"}, {status: 200});
+        } 
+        return HttpResponse.json({message: "Missing fields"}, {status: 400})
+    }),
+]

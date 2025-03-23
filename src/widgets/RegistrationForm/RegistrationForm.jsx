@@ -53,7 +53,7 @@ export const RegistrationForm = (props) => {
 
 
     const registration = () => {
-        // registrationApi.registration(formData)
+        APIs.registration(formData)
     }
 
     const login = () => {

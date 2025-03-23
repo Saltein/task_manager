@@ -1,3 +1,10 @@
-import { handlers } from "./handlers";
+import { taskHandlers } from "./handlers/task";
+import { loginHandlers } from "./handlers/login";
+import { registrationHandlers } from "./handlers/registration";
 
-export {handlers};
+const handlers = [...taskHandlers,
+                         ...loginHandlers,
+                         ...registrationHandlers,
+                         ]
+
+export {handlers}

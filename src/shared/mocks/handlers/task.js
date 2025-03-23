@@ -9,4 +9,5 @@ export const taskHandlers = [
             {id: '3', title: 'Слетать на Марс', priority: 'high'},
         ])  
     }),
+    
 ]
