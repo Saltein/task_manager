@@ -8,5 +8,5 @@ export const loginHandlers = [
             return HttpResponse.json({message: 'Authorisation success!'}, {status: 200});
         }
         return HttpResponse.json({message: 'Invalid email or password'}, {status: 401});
-    })
+    }),
 ]

@@ -10,11 +10,11 @@ async function enableMocking() {
 
   try {
     const { worker } = await import('./shared/mocks/browser');
-    
+
     await worker.start({
       onUnhandledRequest: 'warn', // Логируем все неизвестные запросы
     });
-    
+
   } catch (error) {
     console.error('MSW не смог запуститься', error);
   }
@@ -25,7 +25,7 @@ enableMocking().then(() => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+          <App />
       </BrowserRouter>
     </React.StrictMode>
   );

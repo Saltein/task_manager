@@ -1,7 +1,7 @@
-import {authorisationAPI} from './APIs/authorisationAPI';
-import {registrationApi} from './APIs/registrationAPI';
-import {taskApi} from './APIs/taskAPI';
+import {userAPI} from '../../entities/user/api/api';
+import {taskAPI} from '../../entities/task/api/api';
 
-export const APIs = {...authorisationAPI,
-                     ...registrationApi,
-                     ...taskApi}
+export const APIs = {
+    user: userAPI,
+    task: taskAPI,
+                    }
