@@ -1,3 +1,10 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
 .r_form {
     display: flex;
     flex-direction: column;
@@ -101,6 +108,8 @@ span {
 }
 
 .reg_butt {
+    position: relative;
+    top: -80px;
     color: rgb(200, 0, 0);
     transition: 0.2s;
     font-size: medium;

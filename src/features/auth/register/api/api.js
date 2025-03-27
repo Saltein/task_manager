@@ -1,10 +1,10 @@
-import { APIs } from "../../../shared/api";
+import { APIs } from "../../../../shared/api";
 
-export const register = async (formData) => {
+export const registerApi = async (formData) => {
     try {
         const response = await APIs.user.registration(formData);
-        console.log("Успешный вход:", response);
+        console.log("Успешная регистрация:", response);
     } catch (error) {
-        console.error("Ошибка входа:", error);
+        console.error("Ошибка регистрации:", error);
     }
 };

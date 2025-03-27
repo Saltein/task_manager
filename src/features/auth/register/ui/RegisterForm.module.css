@@ -87,18 +87,18 @@ span {
     color: rgb(200, 0, 0);
 }
 
-.animated_field {
-    opacity: 0;
+.animatedField {
     max-height: 0;
+    opacity: 0;
     overflow: hidden;
-    transition: opacity 0.5s ease, max-height 0.5s ease;
+    transition: max-height 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-.animated_field.show {
+.animatedField.show {
+    max-height: 60px; /* Подберите подходящее значение */
     opacity: 1;
-    max-height: 100px;
-    /* Достаточно для появления поля */
 }
+
 
 .reg_butt {
     color: rgb(200, 0, 0);
