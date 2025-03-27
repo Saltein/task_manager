@@ -1,10 +1,10 @@
-import { RegistrationForm } from "../../widgets"
+import { Authorisation } from "../../widgets"
 import s from "./RegistrationPage.module.css"
 
 export const RegistrationPage = (props) => {
     return (
         <div className={s.wrapper}>
-            <RegistrationForm className={s.r_form}/>
+            <Authorisation className={s.r_form}/>
         </div>
     )
 }
