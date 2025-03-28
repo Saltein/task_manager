@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { DefaultButton, DefaultInput, validatePassword, ValidationError, APIs, checkForMinLen, validateEmail } from "../../../../shared";
+import { useDispatch } from "react-redux";
+import { DefaultButton, DefaultInput, validatePassword, ValidationError, checkForMinLen, validateEmail } from "../../../../shared";
 import s from "./RegisterForm.module.css";
 import { registerApi } from "../api/api";
 import { registerSuccess } from "../model/registerSlice";
 
 export const RegisterForm = (props) => {
+
+    // ПЕРЕМЕННЫЕ
     const dispatch = useDispatch();
 
     const warningMessages = {
@@ -17,6 +19,7 @@ export const RegisterForm = (props) => {
         5: "Такой почты не существует",
     };
 
+    // СОСТОЯНИЯ
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -26,6 +29,13 @@ export const RegisterForm = (props) => {
     const [showName, setShowName] = useState(false);
     const [warningText, setWarningText] = useState('')
 
+    // ФУНКЦИИ
+    const showWarningMessage = () => {
+        setIsChanging(true);
+        setTimeout(() => setIsChanging(false), 500); // Убираем эффект через 0.5 сек
+    }
+
+    // ХЕНДЛЕРЫ
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -34,11 +44,27 @@ export const RegisterForm = (props) => {
         }));
     };
 
-    const showWarningMessage = () => {
-        setIsChanging(true);
-        setTimeout(() => setIsChanging(false), 500); // Убираем эффект через 0.5 сек
+    const handleRegistration = () => {
+        if (!checkForMinLen(formData.name, 3)) {
+            setWarningText(4)
+            showWarningMessage()
+        }
+        else if (!validateEmail(formData.email)) {
+            setWarningText(5)
+            showWarningMessage()
+        }
+        else if (!formData.password) {
+            setWarningText(1)
+            showWarningMessage()
+        }
+        else {
+            setWarningText(0)
+            registerApi(formData)
+            dispatch(registerSuccess)
+        }
     }
 
+    // ЭФФЕКТЫ
     useEffect(() => {
         const newWarning = validatePassword(formData.password);
         if (newWarning !== warningText) {
@@ -50,26 +76,6 @@ export const RegisterForm = (props) => {
     useEffect(() => {
         setTimeout(() => setShowName(true), 100); // Задержка для плавности
     }, []);
-
-    const handleRegistration = () => {
-        if (!checkForMinLen(formData.name, 3)) {
-            setWarningText(4)
-            showWarningMessage()
-        } 
-        else if (!validateEmail(formData.email)) {
-            setWarningText(5)
-            showWarningMessage()
-        }
-        else if (!formData.password){
-            setWarningText(1)
-            showWarningMessage()
-        }
-        else {
-            setWarningText(0)
-            registerApi(formData)
-            dispatch(registerSuccess)
-        }
-    }
 
 
     return (
