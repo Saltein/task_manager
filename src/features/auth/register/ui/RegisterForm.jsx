@@ -54,7 +54,7 @@ export const RegisterForm = (props) => {
         dispatch(registerSuccess)
     }
 
-
+//aboba dev
     return (
         <div className={s.r_form}>
             <div className={s.logo_label}>
@@ -71,7 +71,7 @@ export const RegisterForm = (props) => {
 
                 <span className={`${s.warningText} ${warningText ? s.show : ''} ${isChanging ? s.changing : ''}`}>
                     {warningText ? warningMessages[warningText] : ""}
-                </span>
+                </span> 
 
                 <DefaultButton label={"ЗАРЕГИСТРИРОВАТЬСЯ"} onClick={handleRegistration} />
             </div>
