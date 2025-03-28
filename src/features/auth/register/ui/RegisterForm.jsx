@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DefaultButton, DefaultInput, validatePassword, ValidationError, APIs } from "../../../../shared";
+import { DefaultButton, DefaultInput, validatePassword, ValidationError, APIs, checkForMinLen, validateEmail } from "../../../../shared";
 import s from "./RegisterForm.module.css";
 import { registerApi } from "../api/api";
 import { registerSuccess } from "../model/registerSlice";
@@ -8,14 +8,23 @@ import { registerSuccess } from "../model/registerSlice";
 export const RegisterForm = (props) => {
     const dispatch = useDispatch();
 
+    const warningMessages = {
+        0: "",
+        1: "Пароль должен содержать как минимум 6 символов",
+        2: "Пароль должен содержать как минимум 2 заглавные буквы",
+        3: "Пароль должен содержать как минимум 1 специальный символ",
+        4: "Имя должно содержать хотя бы 3 символа",
+        5: "Такой почты не существует",
+    };
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         name: "",
     });
     const [isChanging, setIsChanging] = useState(false);
-    const [warningText, setWarningText] = useState('')
     const [showName, setShowName] = useState(false);
+    const [warningText, setWarningText] = useState('')
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,20 +34,16 @@ export const RegisterForm = (props) => {
         }));
     };
 
-    const warningMessages = {
-        1: "Пароль должен содержать как минимум 6 символов",
-        2: "Пароль должен содержать как минимум 2 заглавные буквы",
-        3: "Пароль должен содержать как минимум 1 специальный символ",
-    };
+    const showWarningMessage = () => {
+        setIsChanging(true);
+        setTimeout(() => setIsChanging(false), 500); // Убираем эффект через 0.5 сек
+    }
 
     useEffect(() => {
         const newWarning = validatePassword(formData.password);
-
         if (newWarning !== warningText) {
-            setIsChanging(true);
-            setTimeout(() => setIsChanging(false), 500); // Убираем эффект через 0.5 сек
+            showWarningMessage()
         }
-
         setWarningText(newWarning);
     }, [formData.password]);
 
@@ -47,14 +52,26 @@ export const RegisterForm = (props) => {
     }, []);
 
     const handleRegistration = () => {
-        if (formData.name.length() < 3) {
-
+        if (!checkForMinLen(formData.name, 3)) {
+            setWarningText(4)
+            showWarningMessage()
+        } 
+        else if (!validateEmail(formData.email)) {
+            setWarningText(5)
+            showWarningMessage()
         }
-        registerApi(formData)
-        dispatch(registerSuccess)
+        else if (!formData.password){
+            setWarningText(1)
+            showWarningMessage()
+        }
+        else {
+            setWarningText(0)
+            registerApi(formData)
+            dispatch(registerSuccess)
+        }
     }
 
-//aboba dev
+
     return (
         <div className={s.r_form}>
             <div className={s.logo_label}>
@@ -69,9 +86,7 @@ export const RegisterForm = (props) => {
                 <DefaultInput type='text' placeholder='Email' name="email" value={formData.email} onChange={handleChange} />
                 <DefaultInput type='password' placeholder='Пароль' name="password" value={formData.password} onChange={handleChange} />
 
-                <span className={`${s.warningText} ${warningText ? s.show : ''} ${isChanging ? s.changing : ''}`}>
-                    {warningText ? warningMessages[warningText] : ""}
-                </span> 
+                <ValidationError warningText={warningText} isChanging={isChanging} warningMessages={warningMessages} />
 
                 <DefaultButton label={"ЗАРЕГИСТРИРОВАТЬСЯ"} onClick={handleRegistration} />
             </div>
