@@ -71,7 +71,7 @@ export const RegisterForm = (props) => {
             showWarningMessage()
         }
         setWarningText(newWarning);
-    }, [formData.password]);
+    }, [formData.password, warningText]);
 
     useEffect(() => {
         setTimeout(() => setShowName(true), 100); // Задержка для плавности

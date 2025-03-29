@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { DefaultButton, DefaultInput } from "../../shared";
+import { DefaultButton, DefaultInput } from "../../../shared";
 import s from "./RegistrationForm.module.css";
-import { validatePassword } from "../../shared";
-import { APIs } from "../../shared/api";
+import { validatePassword } from "../../../shared";
+import { APIs } from "../../../shared/api";
 
 export const RegistrationForm = (props) => {
     const [isRegister, setIsRegister] = useState(false);
