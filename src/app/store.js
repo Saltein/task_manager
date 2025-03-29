@@ -1,10 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../widgets/Authorisation/model/authorisationSlice";
-import { loginSuccess } from "../features/auth/login/model/loginSlice";
+import authenticationReducer from "../widgets/Authentication/model/authenticationSlice";
+import loginReducer from "../features/authenticate/login/model/loginSlice";
+import registerReducer from "../features/authenticate/register/model/registerSlice";
+
 
 export const store = configureStore({
     reducer: {
-        login: loginSuccess,
-        auth: authReducer, // <-- Здесь должен быть сам редьюсер
+        login: loginReducer,
+        register: registerReducer,
+        authentication: authenticationReducer, 
     },
 });

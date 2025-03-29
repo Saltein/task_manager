@@ -4,8 +4,8 @@ const initialState = {
     isRegistrationProcess: true
 };
 
-const authSlice = createSlice({
-    name: 'auth',
+const authenticateSlice = createSlice({
+    name: 'authentication',
     initialState,
     reducers: {
         authProcessSwitch: (state) => {
@@ -14,5 +14,5 @@ const authSlice = createSlice({
     },
 });
 
-export const {authProcessSwitch} = authSlice.actions;
-export default authSlice.reducer;
+export const {authProcessSwitch} = authenticateSlice.actions;
+export default authenticateSlice.reducer;

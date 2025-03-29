@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
-import { DefaultButton, DefaultInput } from "../../shared";
-import { LoginForm } from "../../features/auth/login";
-import { RegisterForm } from "../../features/auth/register";
-import s from "./Authorisation.module.css";
-import { validatePassword } from "../../shared";
-import { store } from "../../app/store";
+import { LoginForm, RegisterForm } from "../../../features";
+import { store } from "../../../app/store";
 import { useDispatch, useSelector } from "react-redux";
-import { APIs } from "../../shared/api";
-import { selectIsRegProcess } from "./model/authorisationSelectors";
-import { authProcessSwitch } from "./model/authorisationSlice";
+import { selectIsRegProcess } from "../model/authenticationSelectors";
+import { authProcessSwitch } from "../model/authenticationSlice";
+import s from "./Authentication.module.css";
+
 
 console.log("Redux store state:", store.getState());
 
-export const Authorisation = (props) => {
+export const Authentication = (props) => {
     const dispatch = useDispatch();
     const isRegProcess = useSelector(selectIsRegProcess)
 
