@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../model/loginSelectors";
 import { loginSuccess } from "../model/loginSlice";
-import { DefaultButton, DefaultInput, ValidationError } from "../../../../shared";
+import { DefaultButton, DefaultInput, validateEmail, ValidationError } from "../../../../shared";
 
 import { loginApi } from "../api/api";
 import s from './LoginForm.module.css';
@@ -16,7 +16,8 @@ export const LoginForm = () => {
     const warningMessages = {
         0: "",
         1: "Поля не могут быть пустыми",
-        2: "Неверный Email или пароль"
+        2: "Неверный Email или пароль",
+        3: "Такой почты не существует"
     };
 
     // СОСТОЯНИЯ
@@ -46,6 +47,11 @@ export const LoginForm = () => {
     const handleLogin = async () => {
         if (!formData.email || !formData.password) {
             setWarningText(1)
+            showWarningMessage()
+            return
+        }
+        if (!validateEmail(formData.email)) {
+            setWarningText(3)
             showWarningMessage()
             return
         }

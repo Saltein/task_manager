@@ -17,6 +17,7 @@ export const RegisterForm = (props) => {
         3: "Пароль должен содержать как минимум 1 специальный символ",
         4: "Имя должно содержать хотя бы 3 символа",
         5: "Такой почты не существует",
+        6: "Ошибка"
     };
 
     // СОСТОЯНИЯ
@@ -44,23 +45,40 @@ export const RegisterForm = (props) => {
         }));
     };
 
-    const handleRegistration = () => {
+    const handleRegistration = async () => {
         if (!checkForMinLen(formData.name, 3)) {
             setWarningText(4)
             showWarningMessage()
+            return
         }
         else if (!validateEmail(formData.email)) {
             setWarningText(5)
             showWarningMessage()
+            return
         }
         else if (!formData.password) {
             setWarningText(1)
             showWarningMessage()
+            return
         }
-        else {
+        
+        try {
             setWarningText(0)
-            registerApi(formData)
-            dispatch(registerSuccess)
+            const response = await registerApi(formData);
+            if (response?.status === 200) {
+                console.log("Успешная регистрация:", response);
+                dispatch(registerSuccess());
+            }
+            else {
+                console.error("Ошибка регистрации:", response?.message || "Неизвестная ошибка");
+                setWarningText(2);
+                showWarningMessage();
+            }
+        }
+        catch (error) {
+            console.error("Ошибка сети или сервера:", error);
+            setWarningText(2);
+            showWarningMessage();
         }
     }
 
@@ -71,7 +89,7 @@ export const RegisterForm = (props) => {
             showWarningMessage()
         }
         setWarningText(newWarning);
-    }, [formData.password, warningText]);
+    }, [formData.password]); // добавлять сюда warningText нельзя, а то предупреждения не будут работать
 
     useEffect(() => {
         setTimeout(() => setShowName(true), 100); // Задержка для плавности
