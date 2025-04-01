@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    background-color: aliceblue;
+
+    border-radius: 16px;
+}
+
+.divider {
+    margin: 4px 16px 4px 16px;
+    height: 1px;
+    background-color: brown;
+}

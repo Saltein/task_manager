@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../model/loginSelectors";
 import { loginSuccess } from "../model/loginSlice";
 import { DefaultButton, DefaultInput, validateEmail, ValidationError } from "../../../../shared";
+import { useNavigate } from "react-router-dom";
 
 import { loginApi } from "../api/api";
 import s from './LoginForm.module.css';
@@ -11,6 +12,7 @@ import s from './LoginForm.module.css';
 export const LoginForm = () => {
     // ПЕРЕМЕННЫЕ
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const warningMessages = {
@@ -62,6 +64,7 @@ export const LoginForm = () => {
             if (response?.status === 200) {
                 console.log("Успешный вход:", response);
                 dispatch(loginSuccess());
+                navigate('/pomodoro');
             }
             else {
                 console.error("Ошибка входа:", response?.message || "Неизвестная ошибка");

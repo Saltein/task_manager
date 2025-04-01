@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    height: 100vh;
+}
+
+.tasksWrapper {
+    flex: 2;
+    background-color: aqua;
+}
+
+.timerWrapper {
+    flex: 3;
+    background-color: bisque;
+}
