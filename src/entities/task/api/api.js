@@ -1,5 +1,5 @@
 import api from '../../../shared/api/base'
 
 export const taskAPI = {
-    getTask: (data) => api.get('/tasks', data)
+    getTasks: async (data) => api.get('/tasks', data)
 }

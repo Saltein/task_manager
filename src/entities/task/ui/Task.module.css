@@ -3,6 +3,9 @@
     padding: 8px;
     align-items: center;
     gap: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    color: rgb(60, 60, 60);
 }
 
 .doneButton {
@@ -24,4 +27,23 @@
     border-bottom: 2px solid rgb(64, 11, 11);
     color: white;
     transition: 0s;
+}
+
+.image {
+    width: 16px;
+    height: 16px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.buttPriority {
+    display: flex;
+    flex-direction: column;
+    min-width: 40px;
+    justify-content: space-between;
 }

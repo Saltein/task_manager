@@ -1,33 +1,54 @@
+import { useEffect, useState } from "react"
 import { Task } from "../../../entities/task"
+import { APIs } from "../../../shared"
 import { DefaultDivider } from "../../../shared/ui/DefaultDivider/DefaultDivider"
 import s from "./TaskList.module.css"
 
-const data = {
-    tasks: [
-        { id: 1, title: "title 1", description: "description 1", priority: 1, status: false, pomodoros: 3 },
-        { id: 2, title: "title 2", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", priority: 2, status: false, pomodoros: 3 },
-        { id: 3, title: "title 3", description: "description 3", priority: 3, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-        { id: 4, title: "title 4", description: "description 4", priority: 4, status: false, pomodoros: 3 },
-    ]
-}
-
 export const TaskList = (props) => {
+    const [tasks, setTasks] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await APIs.task.getTasks()
+                
+                // Убедитесь, что response.data существует и является массивом
+                const tasksData = response?.data ?? []
+                
+                if (!Array.isArray(tasksData)) {
+                    throw new Error("Received tasks data is not an array")
+                }
+                
+                setTasks(tasksData)
+            } catch (err) {
+                setError(err.message || "Failed to fetch tasks")
+                console.error("Error fetching tasks:", err)
+                setTasks([]) // Устанавливаем пустой массив в случае ошибки
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchTasks()
+    }, [])
+
+    if (loading) return <div>Loading...</div>
+    if (error) return <div>Error: {error}</div>
+
+    // Дополнительная проверка на массив перед рендерингом
+    if (!Array.isArray(tasks)) {
+        console.error("Tasks is not an array:", tasks)
+        return <div>Error: Tasks data is invalid</div>
+    }
+
     return (
         <div className={s.wrapper}>
-            {data.tasks.map((task, index) => (
-                <div key={task.id}>
-                    <Task {...task} /> {/* {...task} — это синтаксис spread-оператора (...) в JSX, 
-                    который используется для передачи всех свойств объекта task в компонент Task в виде отдельных пропсов. */}
-                    {index !== data.tasks.length - 1 && <DefaultDivider margin="16px" />}
+            {tasks.map((task, index) => (
+                <div key={task.id || index}>
+                    <Task {...task} />
+                    {index !== tasks.length - 1 && <DefaultDivider margin="16px" />}
                 </div>
             ))}
         </div>

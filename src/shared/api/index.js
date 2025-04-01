@@ -1,5 +1,5 @@
-import {userAPI} from '../../entities/user/api/api';
-import {taskAPI} from '../../entities/task/api/api';
+import {userAPI} from '../../entities/user';
+import {taskAPI} from '../../entities/task';
 
 export const APIs = {
     user: userAPI,
