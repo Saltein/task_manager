@@ -1,14 +1,41 @@
 .wrapper {
     display: flex;
     height: 100vh;
+    background-color: rgb(254, 249, 225);
 }
 
 .tasksWrapper {
     flex: 2;
-    background-color: aqua;
+    overflow-y: auto;
+    border-radius: 16px;
 }
 
 .timerWrapper {
     flex: 3;
-    background-color: bisque;
+}
+
+@media (max-width: 1024px) {
+    .wrapper {
+        flex-direction: column-reverse;
+    }
+
+    .tasksWrapper {
+        max-height: 40vh;
+    }
+}
+
+.tasksWrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+.tasksWrapper::-webkit-scrollbar-track {
+    background: rgba(255, 166, 0, 0);
+    /* цвет дорожки */
+}
+
+.tasksWrapper::-webkit-scrollbar-thumb {
+    background-color: rgb(200, 80, 80);
+    /* цвет плашки */
+    border-radius: 20px;
+    /* закругления плашки */
 }

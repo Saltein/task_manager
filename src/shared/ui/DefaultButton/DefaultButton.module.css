@@ -5,6 +5,8 @@
     border: none;
     border-bottom: 2px solid rgb(120, 120, 120);
     transition: 0.2s;
+    font-weight: 600;
+    color: rgb(80, 80, 80);
 
     background-color: antiquewhite;
 }

@@ -1,8 +1,9 @@
 .wrapper {
     display: flex;
     min-height: 64px;
-    background-color: aliceblue;
+    background-color: rgb(229, 208, 172);
     margin: 16px;
 
     border-radius: 16px;
+    border-bottom: 2px solid rgb(120, 120, 120);
 }

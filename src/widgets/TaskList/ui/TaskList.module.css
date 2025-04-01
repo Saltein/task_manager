@@ -2,13 +2,9 @@
     display: flex;
     flex-direction: column;
     margin: 16px;
-    background-color: aliceblue;
+    background-color: rgb(229, 208, 172);
 
     border-radius: 16px;
-}
-
-.divider {
-    margin: 4px 16px 4px 16px;
-    height: 1px;
-    background-color: brown;
+    border-bottom: 2px solid rgb(120, 120, 120);
+    overflow: hidden;
 }
