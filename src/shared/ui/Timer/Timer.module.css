@@ -1,0 +1,12 @@
+.Timer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 60%;
+}
+
+.h1{
+    font-size: 80px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
