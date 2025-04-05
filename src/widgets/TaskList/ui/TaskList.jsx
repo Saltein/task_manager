@@ -3,6 +3,7 @@ import { Task } from "../../../entities/task";
 import { APIs } from "../../../shared";
 import { DefaultDivider } from "../../../shared/ui/DefaultDivider/DefaultDivider";
 import s from "./TaskList.module.css";
+import { AddTaskForm } from "../../../features";
 
 export const TaskList = ({ sortPriority, filterStatus }) => {
     const [tasks, setTasks] = useState([]);
@@ -60,14 +61,19 @@ export const TaskList = ({ sortPriority, filterStatus }) => {
 
     return (
         <div className={s.wrapper}>
-            {filteredTasks.map((task, index) => (
-                <div key={task.id || index}>
-                    <Task {...task} />
-                    {index !== filteredTasks.length - 1 && (
-                        <DefaultDivider margin="16px" />
-                    )}
+            <div className={s.create}>
+                <AddTaskForm />
+                <div className={s.created}>
+                    {filteredTasks.map((task, index) => (
+                        <div key={task.id || index}>
+                            <Task {...task} />
+                            {index !== filteredTasks.length - 1 && (
+                                <DefaultDivider margin="16px" />
+                            )}
+                        </div>
+                    ))}
                 </div>
-            ))}
+            </div>
         </div>
     );
 };

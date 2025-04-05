@@ -12,5 +12,6 @@ export {
     TaskActionButton,
     PriorityButton,
     SortButton,
+    TaskInput,
 } from './ui'
 

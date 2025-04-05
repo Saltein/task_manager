@@ -3,9 +3,20 @@
     display: flex;
     flex-direction: column;
     margin: 16px;
-    background-color: rgb(229, 208, 172);
 
     border-radius: 16px;
     border-bottom: 2px solid rgb(120, 120, 120);
     overflow: hidden;
+}
+
+.create {
+    background-color: rgb(235, 245, 210);
+    border-radius: 16px;
+
+    box-shadow: inset 0 0 10px rgb(130, 160, 110);
+}
+.created {
+    background-color: rgb(229, 208, 172);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgb(130, 160, 110);
 }
