@@ -1,32 +1,3 @@
-.wrapper {
-    display: flex;
-    padding: 8px;
-    align-items: center;
-    gap: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    color: rgb(60, 60, 60);
-}
-
-.image {
-    width: 16px;
-    height: 16px;
-}
-
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.priorityContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .priorityButton {
     display: flex;
     justify-content: center;
