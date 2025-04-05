@@ -3,6 +3,7 @@ import s from "./Task.module.css";
 import deleteIcon from "./assets/delete.png";
 import doneIcon from "./assets/checkmark.png";
 import { useState, useRef, useEffect } from "react";
+// import { priorityOptions } from "../../../shared";
 
 export const Task = (props) => {
     const [showPriorityMenu, setShowPriorityMenu] = useState(false);

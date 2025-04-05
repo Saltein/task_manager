@@ -19,5 +19,14 @@ export const taskHandlers = [
             { id: 13, title: "title 4", description: "description 4", priority: 1, status: false, pomodoros: 3 },
         ])
     }),
-
+    
+    http.post(`${API_URL}/tasks`, async ({ request }) => {
+        const newTask = await request.json();
+      
+        console.log("Получена новая задача:", newTask);
+      
+        // Можно сделать, чтобы `msw` возвращал её обратно как будто сервер сохранил
+        return HttpResponse.json({ ...newTask, id: Date.now() });
+      }),
 ]
+

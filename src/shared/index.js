@@ -14,4 +14,5 @@ export {
     SortButton,
     TaskInput,
 } from './ui'
+export { priorityOptions } from './consts/priorityOptions.js'
 
