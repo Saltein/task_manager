@@ -1,5 +1,11 @@
-.divider {
-    margin: 4px var(--margin);
+.h_divider {
+    margin: 0px var(--margin);
     height: 1px;
+    background-color: brown;
+}
+
+.v_divider {
+    margin: var(--margin) 0px;
+    width: 1px;
     background-color: brown;
 }

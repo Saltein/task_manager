@@ -1,4 +1,6 @@
 .wrapper {
+    overflow: visible;
+    position: relative;
     display: flex;
     padding: 8px;
     align-items: center;
@@ -14,6 +16,8 @@
 }
 
 .container {
+    position: static;
+    overflow: visible;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -28,6 +32,7 @@
 }
 
 .priorityButton {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,6 +45,7 @@
 }
 
 .priorityCircle {
+    position: relative;
     width: 12px;
     height: 12px;
     border-radius: 50%;

@@ -1,11 +1,12 @@
-import { PriorityButton, PriorityMenu, TaskActionButton } from "../../../shared";
+import { PriorityButton, DropDownMenu, TaskActionButton } from "../../../shared";
 import s from "./Task.module.css";
 import deleteIcon from "./assets/delete.png";
 import doneIcon from "./assets/checkmark.png";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export const Task = (props) => {
     const [showPriorityMenu, setShowPriorityMenu] = useState(false);
+    const priorityMenuRef = useRef(null);
 
     const priorityOptions = [
         { value: 1, label: "Высокий", color: "#ff4d4d" },
@@ -14,8 +15,26 @@ export const Task = (props) => {
         { value: 4, label: "Очень низкий", color: "#cccccc" },
     ];
 
-    const handlePriorityChange = (newPriority) => {
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (priorityMenuRef.current && !priorityMenuRef.current.contains(event.target)) {
+                setShowPriorityMenu(false);
+            }
+        };
 
+        if (showPriorityMenu) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showPriorityMenu]);
+
+    const handlePriorityChange = (newPriority) => {
+        // Ваша логика изменения приоритета
         setShowPriorityMenu(false);
     };
 
@@ -29,7 +48,7 @@ export const Task = (props) => {
                 </div>
             </div>
 
-            <div className={s.priorityContainer}>
+            <div className={s.priorityContainer} ref={priorityMenuRef}>
                 <PriorityButton
                     setShowPriorityMenu={setShowPriorityMenu}
                     showPriorityMenu={showPriorityMenu}
@@ -38,7 +57,7 @@ export const Task = (props) => {
                 />
 
                 {showPriorityMenu && (
-                    <PriorityMenu priorities={priorityOptions} onSelect={handlePriorityChange} />
+                    <DropDownMenu priorities={priorityOptions} onSelect={handlePriorityChange} />
                 )}
             </div>
 

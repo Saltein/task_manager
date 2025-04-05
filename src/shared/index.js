@@ -8,8 +8,9 @@ export {
     DefaultButton, 
     ValidationError, 
     Timer, 
-    PriorityMenu,
+    DropDownMenu,
     TaskActionButton,
     PriorityButton,
+    SortButton,
 } from './ui'
 

@@ -1,14 +1,14 @@
 .menu {
-    position: absolute;
+    position: fixed;
     top: 30px;
-    right: 0;
+    left: 0;
     backdrop-filter: blur(4px);
     background-color: rgba(255, 255, 255, 0.4);
     border: none;
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.024);
-    z-index: 10;
-    min-width: 150px;
+    z-index: 1000;
+    min-width:max-content;
 }
 
 .option {
