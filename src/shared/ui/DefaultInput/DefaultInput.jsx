@@ -26,7 +26,7 @@ export const DefaultInput = (props) => {
                     onClick={togglePasswordVisibility}
                     className={s.toggleButton}
                 >
-                    {showPassword ? <img src={viewIcon}/> : <img src={hideIcon}/>}
+                    {showPassword ? <img src={viewIcon} alt='view'/> : <img src={hideIcon} alt='hide'/>}
                 </button>
             )}
         </div>

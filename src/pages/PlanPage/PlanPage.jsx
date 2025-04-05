@@ -1,6 +1,6 @@
 import { SortingPanel } from "../../features";
 import { DefaultDivider } from "../../shared/ui/DefaultDivider/DefaultDivider";
-import { TaskList } from "../../widgets";
+import { TaskList, TimerWidget } from "../../widgets";
 import s from "./PlanPage.module.css";
 
 export const PlanPage = (props) => {
@@ -12,7 +12,7 @@ export const PlanPage = (props) => {
             </div>
             <DefaultDivider margin="32px" />
             <div className={s.timerWrapper}>
-                timer
+                <TimerWidget></TimerWidget>
             </div>
         </div>
     )
