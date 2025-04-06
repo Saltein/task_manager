@@ -9,6 +9,11 @@
     color: rgb(80, 80, 80);
 
     background-color: antiquewhite;
+    
+}
+.button img{
+    width: 12px;
+    height: 12px;
 }
 
 .button:hover {
