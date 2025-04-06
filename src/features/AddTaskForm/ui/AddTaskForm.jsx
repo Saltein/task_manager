@@ -81,7 +81,7 @@ export const AddTaskForm = (props) => {
     return (
         <div className={s.createTask}>
             {addMode && (
-                <div className={s.addTaskForm}>
+                <div className={`${s.addTaskForm} ${addMode ? s.active : ''}`}>
                     <div className={s.inputs}>
                         <TaskInput placeholder="Заголовок" oneLine />
                         <TaskInput placeholder="Описание" />

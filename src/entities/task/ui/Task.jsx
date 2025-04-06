@@ -7,7 +7,11 @@ import { useState, useRef, useEffect } from "react";
 
 export const Task = (props) => {
     const [showPriorityMenu, setShowPriorityMenu] = useState(false);
+
     const [taskStatus, setTaskStatus] = useState(false)
+    const [taskTitle, setTaskTitle] = useState('')
+    const [taskDescription, setTaskDescription] = useState('')
+    const [taskPriority, setTaskPriority] = useState('')
 
     const priorityMenuRef = useRef(null);
 
@@ -37,7 +41,7 @@ export const Task = (props) => {
     }, [showPriorityMenu]);
 
     const handlePriorityChange = (newPriority) => {
-        // Ваша логика изменения приоритета
+        setTaskPriority(newPriority)
         setShowPriorityMenu(false);
     };
 
@@ -48,10 +52,11 @@ export const Task = (props) => {
     return (
         <div className={s.wrapper}>
             <div className={s.container}>
-                <div>
-                    <label className={s.title}>{props.title}</label>
-                    <p className={s.description}>{props.description}</p>
-                </div>
+                <label className={s.title}>{props.title}</label>
+                <p className={s.description}>{props.description}</p>
+
+                <input/>
+                <textarea/>
             </div>
 
             <div className={s.priorityContainer} ref={priorityMenuRef}>
@@ -59,14 +64,14 @@ export const Task = (props) => {
                     setShowPriorityMenu={setShowPriorityMenu}
                     showPriorityMenu={showPriorityMenu}
                     priorityOptions={priorityOptions}
-                    priority={props.priority}
+                    priority={taskPriority || props.priority}
                 />
 
                 {showPriorityMenu && (
                     <DropDownMenu priorities={priorityOptions} onSelect={handlePriorityChange} />
                 )}
             </div>
-            <TaskActionButton action={ taskStatus ? "done" : "do" } icon={doneIcon} alt="Done" onClick={handleStatusChange}/>
+            <TaskActionButton action={taskStatus ? "done" : "do"} icon={doneIcon} alt="Done" onClick={handleStatusChange} />
             <TaskActionButton action='delete' icon={deleteIcon} alt="Delete" />
         </div>
     );
