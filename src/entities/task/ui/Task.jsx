@@ -7,6 +7,8 @@ import { useState, useRef, useEffect } from "react";
 
 export const Task = (props) => {
     const [showPriorityMenu, setShowPriorityMenu] = useState(false);
+    const [taskStatus, setTaskStatus] = useState(false)
+
     const priorityMenuRef = useRef(null);
 
     const priorityOptions = [
@@ -39,9 +41,12 @@ export const Task = (props) => {
         setShowPriorityMenu(false);
     };
 
+    const handleStatusChange = () => {
+        setTaskStatus(!taskStatus)
+    }
+
     return (
         <div className={s.wrapper}>
-            <TaskActionButton action="done" icon={doneIcon} alt="Done" />
             <div className={s.container}>
                 <div>
                     <label className={s.title}>{props.title}</label>
@@ -61,7 +66,7 @@ export const Task = (props) => {
                     <DropDownMenu priorities={priorityOptions} onSelect={handlePriorityChange} />
                 )}
             </div>
-
+            <TaskActionButton action={ taskStatus ? "done" : "do" } icon={doneIcon} alt="Done" onClick={handleStatusChange}/>
             <TaskActionButton action='delete' icon={deleteIcon} alt="Delete" />
         </div>
     );

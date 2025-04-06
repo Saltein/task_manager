@@ -6,6 +6,8 @@
     min-height: 64px;
     cursor: pointer;
     transition: 0.2s;
+
+    padding: 0 8px;
 }
 
 .createTask .addImg {

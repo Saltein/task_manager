@@ -4,7 +4,8 @@ export const TaskActionButton = (props) => {
 
     const buttonClass = `${s.button} ${
         props.action === 'done' ? s.doneActive : 
-        props.action === 'delete' ? s.deleteActive : ''
+        props.action === 'delete' ? s.deleteActive : 
+        props.action === 'do' ? s.doActive : ''
     }`;
 
     return (

@@ -82,8 +82,6 @@ export const AddTaskForm = (props) => {
         <div className={s.createTask}>
             {addMode && (
                 <div className={s.addTaskForm}>
-                    <TaskActionButton action="done" icon={addIcon} alt="Done" onClick={handleSubmit} />
-
                     <div className={s.inputs}>
                         <TaskInput placeholder="Заголовок" oneLine />
                         <TaskInput placeholder="Описание" />
@@ -100,6 +98,7 @@ export const AddTaskForm = (props) => {
                             <DropDownMenu priorities={priorityOptions} onSelect={handlePriorityChange} />
                         )}
                     </div>
+                    <TaskActionButton action="do" icon={addIcon} alt="Do" onClick={handleSubmit} />
                 </div>
             )}
 
