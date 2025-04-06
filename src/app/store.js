@@ -3,6 +3,7 @@ import authenticationReducer from "../widgets/Authentication/model/authenticatio
 import loginReducer from "../features/authenticate/login/model/loginSlice";
 import registerReducer from "../features/authenticate/register/model/registerSlice";
 import addTaskFormReducer from "../features/AddTaskForm/model/addTaskFormSlice";
+import authReducer from './model/authSlice'; // Импортируем authReducer
 
 
 export const store = configureStore({
@@ -11,5 +12,6 @@ export const store = configureStore({
         register: registerReducer,
         authentication: authenticationReducer, 
         addTaskForm: addTaskFormReducer,
+        auth: authReducer // Добавляем authReducer в store
     },
 });

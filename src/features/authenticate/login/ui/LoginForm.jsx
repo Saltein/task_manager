@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../model/loginSelectors";
-import { loginSuccess } from "../model/loginSlice";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../../../app/model/authSlice"; // Обновленный импорт
 import { DefaultButton, DefaultInput, validateEmail, ValidationError } from "../../../../shared";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../../../app/context/AuthContext'; // Импортируем useAuth
 
 import { loginApi } from "../api/api";
 import s from './LoginForm.module.css';
 
-
 export const LoginForm = () => {
-    // ПЕРЕМЕННЫЕ
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isLoggedIn = useSelector(selectIsLoggedIn)
+    const { login } = useAuth(); // Получаем функцию login из контекста
 
     const warningMessages = {
         0: "",
@@ -22,22 +20,19 @@ export const LoginForm = () => {
         3: "Такой почты не существует"
     };
 
-    // СОСТОЯНИЯ
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-    })
+    });
 
     const [isChanging, setIsChanging] = useState(false);
-    const [warningText, setWarningText] = useState('')
+    const [warningText, setWarningText] = useState('');
 
-    // ФУНКЦИИ
     const showWarningMessage = () => {
         setIsChanging(true);
-        setTimeout(() => setIsChanging(false), 500); // Убираем эффект через 0.5 сек
-    }
+        setTimeout(() => setIsChanging(false), 500);
+    };
 
-    // ХЕНДЛЕРЫ
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
@@ -48,37 +43,35 @@ export const LoginForm = () => {
 
     const handleLogin = async () => {
         if (!formData.email || !formData.password) {
-            setWarningText(1)
-            showWarningMessage()
-            return
+            setWarningText(1);
+            showWarningMessage();
+            return;
         }
         if (!validateEmail(formData.email)) {
-            setWarningText(3)
-            showWarningMessage()
-            return
+            setWarningText(3);
+            showWarningMessage();
+            return;
         }
 
         try {
-            setWarningText(0)
+            setWarningText(0);
             const response = await loginApi(formData);
             if (response?.status === 200) {
                 console.log("Успешный вход:", response);
-                dispatch(loginSuccess());
+                const token = response.data.token; // Получаем токен из ответа
+                login(token); // Используем функцию login из контекста
                 navigate('/pomodoro');
-            }
-            else {
+            } else {
                 console.error("Ошибка входа:", response?.message || "Неизвестная ошибка");
                 setWarningText(2);
                 showWarningMessage();
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.error("Ошибка сети или сервера:", error);
             setWarningText(2);
             showWarningMessage();
         }
     };
-
 
     return (
         <div className={s.r_form}>
@@ -95,11 +88,6 @@ export const LoginForm = () => {
 
                 <DefaultButton label={"ВОЙТИ"} onClick={handleLogin} />
             </div>
-
-
-
-            {isLoggedIn && <p>Вы успешно вошли!</p>}
-
         </div>
     );
-}
+};
