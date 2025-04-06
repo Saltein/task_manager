@@ -1,0 +1,39 @@
+.button {
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border: none;
+    border-bottom: 2px solid brown;
+    background-color: antiquewhite;
+}
+
+.button:hover {
+    border-bottom: 2px solid rgb(200, 0, 0);
+    cursor: pointer;
+}
+
+.button:active{
+    color: white;
+    transition: 0s;
+}
+
+.button.doActive:active {
+    background-color: rgb(115, 216, 92);
+    border-bottom: 2px solid rgb(11, 64, 16);
+}
+
+.button.deleteActive:active {
+    background-color: rgb(160, 30, 30);
+    border-bottom: 2px solid rgb(64, 11, 30);
+}
+
+.button.doneActive {
+    background-color: rgb(115, 216, 92);
+    border-bottom: 2px solid rgb(11, 64, 16);
+}
+
+.button img {
+    width: 16px;
+}

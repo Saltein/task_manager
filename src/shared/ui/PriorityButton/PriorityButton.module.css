@@ -1,0 +1,24 @@
+.priorityButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.priorityCircle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border-bottom: 1px solid rgb(33, 33, 33);
+    transition: transform 0.2s;
+}
+
+.priorityCircle:hover {
+    transform: scale(1.3);
+    transition: transform 0.2s;
+}

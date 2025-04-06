@@ -5,16 +5,12 @@ import { selectIsRegProcess } from "../model/authenticationSelectors";
 import { authProcessSwitch } from "../model/authenticationSlice";
 import s from "./Authentication.module.css";
 
-
-console.log("Redux store state:", store.getState());
-
 export const Authentication = (props) => {
     const dispatch = useDispatch();
     const isRegProcess = useSelector(selectIsRegProcess)
 
     const handleToggle = () => {
         dispatch(authProcessSwitch())
-        console.log("Before update:", isRegProcess);
     }
 
     return (
