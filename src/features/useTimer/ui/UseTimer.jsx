@@ -3,20 +3,26 @@ import {playIco, stepForwardIco} from '../assets'
 import { useDispatch, useSelector } from 'react-redux'
 import {useEffect} from 'react'
 import { selectIsStopped, selectMode } from '../model/TimerSelectors'
-import { startStopTimer } from '../model/TimerSlice'
+import { startStopTimer, skipTimer } from '../model/TimerSlice'
 import s from './UseTimer.module.css'
 
 
 
 export const UseTimer = () => {
     const dispatch = useDispatch()
+    
 
     const isStopped = useSelector(selectIsStopped)
     const mode = useSelector(selectMode)
 
     const stopTimerHandler = () => {
         dispatch(startStopTimer())
-    
+    }
+    const skipTimerHandler = () => {
+
+        dispatch(skipTimer())
+        
+        localStorage.setItem('mode', mode.toString());
     }
 
     useEffect(() => {
@@ -38,6 +44,7 @@ export const UseTimer = () => {
 
                 <DefaultButton
                     className={s.skipBTN}
+                    onClick = {skipTimerHandler}
                     image={stepForwardIco}
                     imgWidth='12px'
                     style={{ width: '40px', height: "40px" }} />
