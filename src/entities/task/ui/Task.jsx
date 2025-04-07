@@ -93,7 +93,7 @@ export const Task = (props) => {
     }, []);
 
     return (
-        <div className={s.wrapper}>
+        <div className={s.wrapper} >
             <div className={s.container}>
                 <input className={s.title} value={taskTitle} onChange={handleTitleChange} />
                 <textarea
@@ -109,7 +109,7 @@ export const Task = (props) => {
                 <PriorityButton
                     setShowPriorityMenu={setShowPriorityMenu}
                     showPriorityMenu={showPriorityMenu}
-                    priorityOptions={priorityOptions}
+                    priorityOptions={priorityOptions} 
                     priority={taskPriority || props.priority}
                 />
 
