@@ -1,4 +1,4 @@
-import { PriorityButton, DropDownMenu, TaskActionButton } from "../../../shared";
+import { PriorityButton, DropDownMenu, TaskActionButton, APIs } from "../../../shared";
 import s from "./Task.module.css";
 import deleteIcon from "./assets/delete.png";
 import doneIcon from "./assets/checkmark.png";
@@ -23,12 +23,26 @@ export const Task = (props) => {
     ];
 
     const handlePriorityChange = (newPriority) => {
-        setTaskPriority(newPriority)
+
         setShowPriorityMenu(false);
     };
 
     const handleStatusChange = () => {
         setTaskStatus(!taskStatus)
+    }
+
+    const handleDelete = async () => {
+        const taskData = {
+            id: props.id
+        }
+        try {
+            const response = await APIs.task.deleteTask(JSON.stringify(taskData))
+            const result = await response.json;
+            console.log("Сервер вернул:", result);
+        }
+        catch (error) {
+            console.error("Ошибка при удалении задачи:", error);
+        }
     }
 
     const handleTitleChange = (e) => {
@@ -71,7 +85,7 @@ export const Task = (props) => {
         const handleResize = () => {
             adjustHeight();
         };
-    
+
         window.addEventListener("resize", handleResize);
         return () => {
             window.removeEventListener("resize", handleResize);
@@ -81,7 +95,7 @@ export const Task = (props) => {
     return (
         <div className={s.wrapper}>
             <div className={s.container}>
-                <input className={s.title} value={taskTitle} onChange={handleTitleChange}/>
+                <input className={s.title} value={taskTitle} onChange={handleTitleChange} />
                 <textarea
                     className={s.description}
                     spellcheck="false"
@@ -104,7 +118,7 @@ export const Task = (props) => {
                 )}
             </div>
             <TaskActionButton action={taskStatus ? "done" : "do"} icon={doneIcon} alt="Done" onClick={handleStatusChange} />
-            <TaskActionButton action='delete' icon={deleteIcon} alt="Delete" />
+            <TaskActionButton action='delete' icon={deleteIcon} alt="Delete" oncLick={handleDelete} />
         </div>
     );
 };

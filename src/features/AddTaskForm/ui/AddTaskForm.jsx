@@ -1,9 +1,9 @@
 import s from "./AddTaskForm.module.css"
 import addIcon from "../assets/add.png"
 import { useEffect, useState, useRef } from "react";
-import { PriorityButton, DropDownMenu, TaskActionButton, TaskInput } from "../../../shared";
+import { PriorityButton, DropDownMenu, TaskActionButton, TaskInput, APIs } from "../../../shared";
 import { useDispatch, useSelector } from 'react-redux';
-import { resetForm } from "../../../features/AddTaskForm/model/addTaskFormSlice";
+import { resetForm, selectDescription, selectPriority, selectTitle } from "../../../features/AddTaskForm/model/addTaskFormSlice";
 // import { priorityOptions } from "../../../shared";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -12,6 +12,7 @@ export const AddTaskForm = (props) => {
     // STATES
     const [addMode, setAddMode] = useState(false);
     const [showPriorityMenu, setShowPriorityMenu] = useState(false);
+    const [taskPriority, setTaskPriority] = useState(4)
 
     // REFS
     const priorityMenuRef = useRef(null);
@@ -27,16 +28,18 @@ export const AddTaskForm = (props) => {
     ];
 
     // SELECTORS
-    const title = useSelector(state => state.addTaskForm.title);
-    const description = useSelector(state => state.addTaskForm.description);
+    const title = useSelector(selectTitle);
+    const description = useSelector(selectDescription);
+    const priority = useSelector(selectPriority);
 
     // HANDLERS
     const onAddModeHandler = () => {
         setAddMode(!addMode);
+
     };
 
     const handlePriorityChange = (newPriority) => {
-        // Ваша логика изменения приоритета
+        setTaskPriority(newPriority)
         setShowPriorityMenu(false);
     };
 
@@ -49,21 +52,15 @@ export const AddTaskForm = (props) => {
         const newTask = {
             title,
             description,
-            priority: 1,
+            priority: taskPriority,
             status: false,
             pomodoros: 1
         };
 
         try {
-            const res = await fetch(`${API_URL}/tasks`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newTask),
-            });
+            const response = await APIs.task.addTask(JSON.stringify(newTask))
 
-            const result = await res.json();
+            const result = await response.json;
             console.log("Сервер вернул:", result);
 
             dispatch(resetForm());
@@ -72,6 +69,10 @@ export const AddTaskForm = (props) => {
             console.error("Ошибка при отправке задачи:", error);
         }
     };
+
+    useEffect(() => {
+        setTaskPriority(priority)
+    }, [])
 
     // EFFECTS
     useEffect(() => {
@@ -91,7 +92,7 @@ export const AddTaskForm = (props) => {
                             setShowPriorityMenu={setShowPriorityMenu}
                             showPriorityMenu={showPriorityMenu}
                             priorityOptions={priorityOptions}
-                            priority={1}
+                            priority={taskPriority}
                         />
 
                         {showPriorityMenu && (
