@@ -32,12 +32,9 @@ export const Task = (props) => {
     }
 
     const handleDelete = async () => {
-        const taskData = {
-            id: props.id
-        }
+        const taskId = props.id
         try {
-            console.log('JSON.stringify(taskData)', JSON.stringify(taskData))
-            const response = await APIs.task.deleteTask(JSON.stringify(taskData))
+            const response = await APIs.task.deleteTask(taskId)
             const result = await response.json;
             console.log("Сервер вернул:", result);
         }

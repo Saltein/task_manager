@@ -64,7 +64,7 @@ export const TaskList = ({ sortPriority, filterStatus }) => {
             <div className={s.create}>
                 <AddTaskForm />
                 <div className={s.created}>
-                    {filteredTasks.map((task, index) => (
+                    {filteredTasks.reverse().map((task, index) => (
                         <div key={task.id || index}>
                             <Task {...task} />
                             {index !== filteredTasks.length - 1 && (

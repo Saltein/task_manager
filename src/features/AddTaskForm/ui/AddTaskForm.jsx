@@ -55,8 +55,7 @@ export const AddTaskForm = (props) => {
         };
 
         try {
-            console.log("JSON.stringify(newTask)", JSON.stringify(newTask))
-            const response = await APIs.task.addTask(JSON.stringify(newTask))
+            const response = await APIs.task.addTask(newTask)
 
             const result = await response.json;
             console.log("Сервер вернул:", result);
