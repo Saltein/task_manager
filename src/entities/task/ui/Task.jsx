@@ -36,6 +36,7 @@ export const Task = (props) => {
             id: props.id
         }
         try {
+            console.log('JSON.stringify(taskData)', JSON.stringify(taskData))
             const response = await APIs.task.deleteTask(JSON.stringify(taskData))
             const result = await response.json;
             console.log("Сервер вернул:", result);
@@ -118,7 +119,7 @@ export const Task = (props) => {
                 )}
             </div>
             <TaskActionButton action={taskStatus ? "done" : "do"} icon={doneIcon} alt="Done" onClick={handleStatusChange} />
-            <TaskActionButton action='delete' icon={deleteIcon} alt="Delete" oncLick={handleDelete} />
+            <TaskActionButton action='delete' icon={deleteIcon} alt="Delete" onClick={handleDelete} />
         </div>
     );
 };

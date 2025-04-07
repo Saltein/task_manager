@@ -52,12 +52,10 @@ export const AddTaskForm = (props) => {
         const newTask = {
             title,
             description,
-            priority: taskPriority,
-            status: false,
-            pomodoros: 1
         };
 
         try {
+            console.log("JSON.stringify(newTask)", JSON.stringify(newTask))
             const response = await APIs.task.addTask(JSON.stringify(newTask))
 
             const result = await response.json;
