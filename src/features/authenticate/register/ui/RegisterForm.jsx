@@ -66,15 +66,8 @@ export const RegisterForm = (props) => {
         try {
             setWarningText(0)
             const response = await registerApi(formData);
-            if (response?.status === 200) {
-                console.log("Успешная регистрация:", response);
-                dispatch(registerSuccess());
-            }
-            else {
-                console.error("Ошибка регистрации:", response?.message || "Неизвестная ошибка");
-                setWarningText(6);
-                showWarningMessage();
-            }
+            dispatch(registerSuccess());
+            props.onRegister()
         }
         catch (error) {
             console.error("Ошибка сети или сервера:", error);
