@@ -23,9 +23,9 @@ export const RegisterForm = (props) => {
 
     // СОСТОЯНИЯ
     const [formData, setFormData] = useState({
+        name: "",
         email: "",
         password: "",
-        name: "",
     });
     const [isChanging, setIsChanging] = useState(false);
     const [showName, setShowName] = useState(false);
