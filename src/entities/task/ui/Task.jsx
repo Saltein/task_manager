@@ -22,13 +22,26 @@ export const Task = (props) => {
         { value: 4, label: "Очень низкий", color: "#cccccc" },
     ];
 
-    const handlePriorityChange = (newPriority) => {
+    const submitChanges = async (id) => {
+        const newTaskData = {
+            id,
+            taskTitle,
+            taskDescription,
+            taskPriority,
+            taskStatus,
+        }
 
+        const response = await APIs.task.updateTask(newTaskData)
+    } 
+
+    const handlePriorityChange = (newPriority) => {
         setShowPriorityMenu(false);
+        submitChanges(props.id)
     };
 
     const handleStatusChange = () => {
         setTaskStatus(!taskStatus)
+        ()
     }
 
     const handleDelete = async () => {
@@ -48,10 +61,12 @@ export const Task = (props) => {
 
     const handleTitleChange = (e) => {
         setTaskTitle(e.target.value)
+        submitChanges()
     }
 
     const handleDescriptionChange = (e) => {
         setTaskDescription(e.target.value)
+        submitChanges()
     }
 
     const adjustHeight = () => {
