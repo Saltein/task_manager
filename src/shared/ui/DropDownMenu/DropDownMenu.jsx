@@ -14,15 +14,15 @@ export const DropDownMenu = (props) => {
                 menuEl.style.top = `${parentRect.top}px`;
             }
             if (menuRect.bottom > parentRect.bottom) {
-                menuEl.style.top = `${parentRect.bottom - menuRect.height + menuRect.height}px`;
+                menuEl.style.top = `${parentRect.bottom}px`;
             }
-            if (menuRect.left < parentRect.left) {
-                menuEl.style.left = `${parentRect.left}px`
+            if (menuRect.left < 0) {
+                menuEl.style.left = `0px`;
             }
-            if (menuRect.right > parentRect.right) {
-                menuEl.style.left = `${parentRect.right - menuRect.width}px`
+            if (menuRect.right > window.innerWidth) {
+                menuEl.style.left = `${window.innerWidth - menuRect.width}px`;
             }
-        };
+        }
 
         adjustPosition();
     }, []);

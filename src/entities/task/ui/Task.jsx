@@ -3,17 +3,17 @@ import s from "./Task.module.css";
 import deleteIcon from "./assets/delete.png";
 import doneIcon from "./assets/checkmark.png";
 import { useState, useRef, useEffect } from "react";
-// import { priorityOptions } from "../../../shared";
 
 export const Task = (props) => {
     const [showPriorityMenu, setShowPriorityMenu] = useState(false);
 
     const [taskStatus, setTaskStatus] = useState(false)
-    const [taskTitle, setTaskTitle] = useState('')
-    const [taskDescription, setTaskDescription] = useState('')
+    const [taskTitle, setTaskTitle] = useState(props.title || '')
+    const [taskDescription, setTaskDescription] = useState(props.description || '')
     const [taskPriority, setTaskPriority] = useState('')
 
     const priorityMenuRef = useRef(null);
+    const textareaRef = useRef(null);
 
     const priorityOptions = [
         { value: 1, label: "Высокий", color: "#ff4d4d" },
@@ -21,6 +21,29 @@ export const Task = (props) => {
         { value: 3, label: "Низкий", color: "#4d79ff" },
         { value: 4, label: "Очень низкий", color: "#cccccc" },
     ];
+
+    const handlePriorityChange = (newPriority) => {
+        setTaskPriority(newPriority)
+        setShowPriorityMenu(false);
+    };
+
+    const handleStatusChange = () => {
+        setTaskStatus(!taskStatus)
+    }
+
+    const handleTitleChange = (e) => {
+        setTaskTitle(e.target.value)
+    }
+
+    const handleDescriptionChange = (e) => {
+        setTaskDescription(e.target.value)
+    }
+
+    const adjustHeight = () => {
+        const textarea = textareaRef.current;
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -40,23 +63,32 @@ export const Task = (props) => {
         };
     }, [showPriorityMenu]);
 
-    const handlePriorityChange = (newPriority) => {
-        setTaskPriority(newPriority)
-        setShowPriorityMenu(false);
-    };
+    useEffect(() => {
+        adjustHeight();
+    }, [taskDescription]);
 
-    const handleStatusChange = () => {
-        setTaskStatus(!taskStatus)
-    }
+    useEffect(() => {
+        const handleResize = () => {
+            adjustHeight();
+        };
+    
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
         <div className={s.wrapper}>
             <div className={s.container}>
-                <label className={s.title}>{props.title}</label>
-                <p className={s.description}>{props.description}</p>
-
-                <input/>
-                <textarea/>
+                <input className={s.title} value={taskTitle} onChange={handleTitleChange}/>
+                <textarea
+                    className={s.description}
+                    spellcheck="false"
+                    value={taskDescription}
+                    ref={textareaRef}
+                    onChange={handleDescriptionChange}
+                />
             </div>
 
             <div className={s.priorityContainer} ref={priorityMenuRef}>
