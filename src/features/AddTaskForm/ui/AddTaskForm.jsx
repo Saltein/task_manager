@@ -62,6 +62,10 @@ export const AddTaskForm = (props) => {
 
             dispatch(resetForm());
             setAddMode(false);
+
+            if (props.onTaskAdded) {
+                props.onTaskAdded();
+            }
         } catch (error) {
             console.error("Ошибка при отправке задачи:", error);
         }

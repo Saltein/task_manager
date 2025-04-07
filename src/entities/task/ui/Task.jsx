@@ -37,6 +37,9 @@ export const Task = (props) => {
             const response = await APIs.task.deleteTask(taskId)
             const result = await response.json;
             console.log("Сервер вернул:", result);
+            if (props.onTaskAdded) {
+                props.onTaskAdded();
+            }
         }
         catch (error) {
             console.error("Ошибка при удалении задачи:", error);

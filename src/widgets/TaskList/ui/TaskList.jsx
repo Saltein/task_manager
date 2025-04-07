@@ -10,28 +10,28 @@ export const TaskList = ({ sortPriority, filterStatus }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-                const response = await APIs.task.getTasks();
+    const fetchTasks = async () => {
+        try {
+            const response = await APIs.task.getTasks();
 
-                // Убедитесь, что response.data существует и является массивом
-                const tasksData = response?.data ?? [];
+            // Убедитесь, что response.data существует и является массивом
+            const tasksData = response?.data ?? [];
 
-                if (!Array.isArray(tasksData)) {
-                    throw new Error("Received tasks data is not an array");
-                }
-
-                setTasks(tasksData);
-            } catch (err) {
-                setError(err.message || "Failed to fetch tasks");
-                console.error("Error fetching tasks:", err);
-                setTasks([]); // Устанавливаем пустой массив в случае ошибки
-            } finally {
-                setLoading(false);
+            if (!Array.isArray(tasksData)) {
+                throw new Error("Received tasks data is not an array");
             }
-        };
 
+            setTasks(tasksData);
+        } catch (err) {
+            setError(err.message || "Failed to fetch tasks");
+            console.error("Error fetching tasks:", err);
+            setTasks([]); // Устанавливаем пустой массив в случае ошибки
+        } finally {
+            setLoading(false);
+        }
+    };
+    
+    useEffect(() => {
         fetchTasks();
     }, []);
 
@@ -62,11 +62,11 @@ export const TaskList = ({ sortPriority, filterStatus }) => {
     return (
         <div className={s.wrapper}>
             <div className={s.create}>
-                <AddTaskForm />
+                <AddTaskForm onTaskAdded={fetchTasks} />
                 <div className={s.created}>
                     {filteredTasks.reverse().map((task, index) => (
                         <div key={task.id || index}>
-                            <Task {...task} />
+                            <Task {...task} onTaskAdded={fetchTasks}/>
                             {index !== filteredTasks.length - 1 && (
                                 <DefaultDivider margin="16px" />
                             )}
