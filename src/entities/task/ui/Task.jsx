@@ -98,7 +98,7 @@ export const Task = (props) => {
                 <input className={s.title} value={taskTitle} onChange={handleTitleChange} />
                 <textarea
                     className={s.description}
-                    spellcheck="false"
+                    spellCheck="false"
                     value={taskDescription}
                     ref={textareaRef}
                     onChange={handleDescriptionChange}

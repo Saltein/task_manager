@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './app/App';
+import { Provider } from 'react-redux';
+import { store } from "./app/store"
 
 async function enableMocking() {
   if (process.env.NODE_ENV !== 'development') {
@@ -24,9 +26,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 enableMocking().then(() => {
   root.render(
     <React.StrictMode>
-      <BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
           <App />
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     </React.StrictMode>
   );
 }) 

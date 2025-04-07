@@ -11,24 +11,26 @@ export const AuthProvider = ({ children }) => {
   const token = useSelector(selectToken);
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
-  // Синхронизируем состояние аутентификации с Redux
   useEffect(() => {
-    setIsAuthenticated(!!token);
+    if (token) {
+      setIsAuthenticated(true); // Устанавливаем isAuthenticated в true, если токен есть
+    } else {
+      setIsAuthenticated(false); // В противном случае - false
+    }
   }, [token]);
 
-  // Функция входа в систему
   const login = (token) => {
     dispatch(loginSuccess(token));
+    localStorage.setItem('token', token); // Сохраняем токен в localStorage
     setIsAuthenticated(true);
   };
 
-  // Функция выхода из системы
   const logout = () => {
     dispatch(logoutSuccess());
+    localStorage.removeItem('token'); // Удаляем токен из localStorage
     setIsAuthenticated(false);
   };
 
-  // Значение, которое будет доступно через контекст
   const value = {
     isAuthenticated,
     token,
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
 
 // Хук для удобного использования контекста
 export const useAuth = () => {
