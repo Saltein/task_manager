@@ -10,12 +10,13 @@ export const Authentication = (props) => {
     const isRegProcess = useSelector(selectIsRegProcess)
 
     const handleToggle = () => {
+        console.log('Должено было переключиться на логин')
         dispatch(authProcessSwitch())
     }
 
     return (
         <div className={s.wrapper}>
-            {isRegProcess ? <RegisterForm /> : <LoginForm />}
+            {isRegProcess ? <RegisterForm onRegister={handleToggle} /> : <LoginForm />}
             <a className={s.reg_butt} onClick={handleToggle}>
                 {isRegProcess ? "Войти" : "Зарегистрироваться"}
             </a>

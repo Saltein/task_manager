@@ -4,6 +4,7 @@ import { DefaultButton, DefaultInput, validatePassword, ValidationError, checkFo
 import s from "./RegisterForm.module.css";
 import { registerApi } from "../api/api";
 import { registerSuccess } from "../model/registerSlice";
+import { authProcessSwitch } from "../../../../widgets/Authentication/model/authenticationSlice";
 
 export const RegisterForm = (props) => {
 
@@ -17,7 +18,7 @@ export const RegisterForm = (props) => {
         3: "Пароль должен содержать как минимум 1 специальный символ",
         4: "Имя должно содержать хотя бы 3 символа",
         5: "Такой почты не существует",
-        6: "Ошибка"
+        6: "Ошибка регистрации"
     };
 
     // СОСТОЯНИЯ
@@ -61,7 +62,7 @@ export const RegisterForm = (props) => {
             showWarningMessage()
             return
         }
-        
+
         try {
             setWarningText(0)
             const response = await registerApi(formData);
@@ -71,13 +72,13 @@ export const RegisterForm = (props) => {
             }
             else {
                 console.error("Ошибка регистрации:", response?.message || "Неизвестная ошибка");
-                setWarningText(2);
+                setWarningText(6);
                 showWarningMessage();
             }
         }
         catch (error) {
             console.error("Ошибка сети или сервера:", error);
-            setWarningText(2);
+            setWarningText(6);
             showWarningMessage();
         }
     }
