@@ -28,6 +28,10 @@ const TimerSlice = createSlice({
                 state.currentTime = action.payload;
             }
         },
+        skipTimer: (state) => {
+            state.mode = state.mode === "work" ? "rest" : "work"
+            state.currentTime = state.mode === "work" ? state.pomodor : state.rest
+        },
         startStopTimer: (state) => {
             state.isStopped = !state.isStopped;
         },
@@ -55,6 +59,7 @@ const TimerSlice = createSlice({
 export const {
     setPomodor,
     setRest,
+    skipTimer,
     startStopTimer,
     resetTimer,
     tick,
